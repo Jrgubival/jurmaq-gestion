@@ -1,0 +1,1 @@
+export { Vales as default } from './PlaceholderPages';

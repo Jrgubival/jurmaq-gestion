@@ -1,0 +1,1 @@
+export { Firmas as default } from './PlaceholderPages';

@@ -1,27 +1,46 @@
 {
   "name": "jurmaq-gestion",
   "version": "1.0.0",
-  "description": "Business management application for JURMAQ EIRL",
+  "description": "Aplicación de gestión empresarial para JURMAQ EIRL",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build": "npm run build:win && npm run build:mac"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "electron": "^latest",
-    "react": "^latest",
-    "react-dom": "^latest"
+    "electron": "^28.0.0"
   },
   "devDependencies": {
-    "typescript": "^latest",
-    "electron-builder": "^latest"
+    "typescript": "^4.9.5"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "com.jurmaq.gestion",
+    "productName": "JURMAQ Gestión Empresarial",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "src/main/**/*",
+      "templates/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icons/icon.icns"
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jrgubival/jurmaq-gestion.git"
   },
-  "author": "Your Name",
+  "author": "Jorge Ubilla - JURMAQ EIRL",
   "license": "MIT"
 }
