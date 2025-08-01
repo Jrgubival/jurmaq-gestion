@@ -4,448 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JURMAQ Gestión Empresarial</title>
+    <link rel="icon" type="image/png" href="assets/icons/icon.png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
+            margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background: #f5f7fa;
-            height: 100vh;
-            overflow: hidden;
         }
-
-        .app-container {
-            display: flex;
+        
+        #root {
             height: 100vh;
         }
-
-        .sidebar {
-            width: 280px;
-            background: white;
-            border-right: 1px solid #e2e8f0;
+        
+        .loading {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f5f7fa;
         }
-
-        .sidebar-header {
-            padding: 24px;
+        
+        .loading-content {
             text-align: center;
-            border-bottom: 1px solid #e2e8f0;
         }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 16px;
+        
+        .loading-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
         }
-
-        .company-name {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #2d3748;
-        }
-
-        .company-subtitle {
-            font-size: 14px;
-            color: #718096;
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 16px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            margin-bottom: 4px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
+        
+        .loading-text {
             color: #4a5568;
-            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
-
-        .nav-item:hover {
-            background: #f7fafc;
-        }
-
-        .nav-item.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .nav-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
-            opacity: 0.7;
-        }
-
-        .nav-item.active .nav-icon {
-            opacity: 1;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .header {
-            background: white;
-            padding: 16px 24px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .content {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-        }
-
-        .welcome-card {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
             margin: 0 auto;
         }
-
-        .welcome-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-        }
-
-        .welcome-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 12px;
-        }
-
-        .welcome-subtitle {
-            font-size: 18px;
-            color: #718096;
-            margin-bottom: 32px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .feature-card {
-            background: #f7fafc;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: left;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .feature-description {
-            font-size: 14px;
-            color: #718096;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin: 0 8px;
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .status-bar {
-            background: #48bb78;
-            color: white;
-            padding: 8px 16px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .demo-info {
-            background: #edf2f7;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 24px;
-        }
-
-        .demo-title {
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .demo-text {
-            font-size: 14px;
-            color: #4a5568;
-            line-height: 1.5;
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="status-bar">
-        ✅ JURMAQ Gestión Empresarial - Aplicación iniciada correctamente
+    <div id="root">
+        <div class="loading">
+            <div class="loading-content">
+                <div class="loading-logo">J</div>
+                <div class="loading-text">JURMAQ Gestión Empresarial</div>
+                <div class="loading-text">Cargando aplicación React...</div>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
     </div>
-
-    <div class="app-container">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">J</div>
-                <div class="company-name">JURMAQ</div>
-                <div class="company-subtitle">Gestión Empresarial</div>
-            </div>
-            
-            <div class="nav-menu">
-                <div class="nav-item active">
-                    <span class="nav-icon">📊</span>
-                    Dashboard
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">⛽</span>
-                    Control de Combustible
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">📋</span>
-                    Presupuestos
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🧾</span>
-                    Facturas
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">⏰</span>
-                    Control de Asistencia
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">📄</span>
-                    Vales y Anexos
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">📁</span>
-                    Documentación
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">🔧</span>
-                    Mantenimiento
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    Usuarios y Permisos
-                </div>
-                <div class="nav-item">
-                    <span class="nav-icon">✍️</span>
-                    Firmas Digitales
-                </div>
-            </div>
-        </nav>
-
-        <main class="main-content">
-            <header class="header">
-                <h1>Dashboard Principal</h1>
-                <div>
-                    <button class="btn" onclick="showAlert('Funcionalidad disponible en la versión completa')">
-                        Sincronizar OneDrive
-                    </button>
-                </div>
-            </header>
-
-            <div class="content">
-                <div class="welcome-card">
-                    <div class="welcome-logo">J</div>
-                    <h2 class="welcome-title">JURMAQ Gestión Empresarial</h2>
-                    <p class="welcome-subtitle">
-                        Sistema completo de gestión empresarial para JURMAQ EIRL
-                    </p>
-
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-title">🏢 Empresas Registradas</div>
-                            <div class="feature-description">
-                                • Constructora JURMAQ EIRL (76.624.872-1)<br>
-                                • Comercial Maquehua SPA (77.214.160-1)
-                            </div>
-                        </div>
-
-                        <div class="feature-card">
-                            <div class="feature-title">📊 10 Módulos Principales</div>
-                            <div class="feature-description">
-                                Dashboard, Combustible, Presupuestos, Facturas, Asistencia, 
-                                Vales, Documentación, Mantenimiento, Usuarios y Firmas
-                            </div>
-                        </div>
-
-                        <div class="feature-card">
-                            <div class="feature-title">💾 Base de Datos SQLite</div>
-                            <div class="feature-description">
-                                Almacenamiento local con sincronización automática 
-                                a OneDrive para backup y acceso remoto
-                            </div>
-                        </div>
-
-                        <div class="feature-card">
-                            <div class="feature-title">📄 Generación de Documentos</div>
-                            <div class="feature-description">
-                                PDFs personalizados con Puppeteer y plantillas 
-                                .docx editables con Docxtemplater
-                            </div>
-                        </div>
-
-                        <div class="feature-card">
-                            <div class="feature-title">🔒 Sistema de Seguridad</div>
-                            <div class="feature-description">
-                                Autenticación con roles (Admin, RRHH, Usuario) 
-                                y control de permisos por módulo
-                            </div>
-                        </div>
-
-                        <div class="feature-card">
-                            <div class="feature-title">🖥️ Multiplataforma</div>
-                            <div class="feature-description">
-                                Aplicación nativa para Windows (.exe) y 
-                                macOS (.dmg) con Electron
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="demo-info">
-                        <div class="demo-title">🚀 Aplicación Base Implementada</div>
-                        <div class="demo-text">
-                            <strong>Estado Actual:</strong> Se ha implementado la estructura completa de la aplicación JURMAQ Gestión Empresarial con:<br><br>
-                            
-                            ✅ <strong>Arquitectura Electron + React + TypeScript</strong><br>
-                            ✅ <strong>Sistema de autenticación y roles</strong><br>
-                            ✅ <strong>Base de datos SQLite con modelos completos</strong><br>
-                            ✅ <strong>Interfaz Material-UI completamente en español</strong><br>
-                            ✅ <strong>Servicios OneDrive, PDF y DOCX configurados</strong><br>
-                            ✅ <strong>Módulo de Control de Combustible funcional</strong><br>
-                            ✅ <strong>Dashboard con métricas y actividad</strong><br>
-                            ✅ <strong>Estructura de 10 módulos empresariales</strong><br><br>
-
-                            <strong>Próximos pasos:</strong> Implementar los módulos restantes (Presupuestos, Facturas, Asistencia, etc.) 
-                            y configurar builds para Windows y macOS.
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 24px;">
-                        <button class="btn" onclick="showModuleInfo()">Ver Módulos Implementados</button>
-                        <button class="btn" onclick="showDemoData()">Datos de Demostración</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        function showAlert(message) {
-            alert(message);
-        }
-
-        function showModuleInfo() {
-            alert(`Módulos JURMAQ Gestión Empresarial:
-
-✅ Dashboard General - Implementado
-✅ Control de Combustible - Implementado
-🔄 Gestión de Presupuestos - En desarrollo
-🔄 Gestión de Facturas - En desarrollo  
-🔄 Control de Asistencia - En desarrollo
-🔄 Vales y Anexos - En desarrollo
-🔄 Documentación - En desarrollo
-🔄 Mantenimiento - En desarrollo
-🔄 Usuarios y Permisos - En desarrollo
-🔄 Firmas Digitales - En desarrollo
-
-La aplicación cuenta con la estructura completa y los módulos se irán implementando progresivamente.`);
-        }
-
-        function showDemoData() {
-            alert(`Usuarios de Demostración:
-
-👨‍💼 Admin: admin@jurmaq.cl / admin123
-👥 RRHH: rrhh@jurmaq.cl / user123  
-👤 Usuario: usuario@jurmaq.cl / user123
-
-Empresas Configuradas:
-🏢 Constructora JURMAQ EIRL (76.624.872-1)
-🏢 Comercial Maquehua SPA (77.214.160-1)
-
-La aplicación funciona con datos de demostración y sincronización OneDrive simulada.`);
-        }
-
-        // Add click handlers for nav items
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                
-                const moduleName = this.textContent.trim();
-                if (moduleName === 'Dashboard') {
-                    document.querySelector('.header h1').textContent = 'Dashboard Principal';
-                } else {
-                    document.querySelector('.header h1').textContent = moduleName;
-                    showAlert(`Módulo "${moduleName}" - Funcionalidad completa disponible próximamente.`);
-                }
-            });
-        });
-
-        console.log('JURMAQ Gestión Empresarial - Aplicación iniciada correctamente');
-        console.log('Estructura completa implementada - Lista para desarrollo de módulos');
-    </script>
+    
+    <!-- Load the React build -->
+    <script src="build/bundle.js"></script>
 </body>
 </html>
