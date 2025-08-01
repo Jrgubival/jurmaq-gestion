@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Presupuesto {{numero}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+            padding: 40px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .company-info {
+            text-align: right;
+            flex: 1;
+            margin-left: 40px;
+        }
+        
+        .company-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .company-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .document-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 40px 0;
+            color: #333;
+            text-transform: uppercase;
+            border: 3px solid #667eea;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+        
+        .presupuesto-number {
+            text-align: center;
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        
+        .client-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        
+        .info-value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .description-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+        }
+        
+        .description-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .items-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+        
+        .items-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .items-table tr:hover {
+            background: #e3f2fd;
+        }
+        
+        .amount {
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .total-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .total-label {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .total-amount {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .conditions-section {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .conditions-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .conditions-list {
+            color: #856404;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .conditions-list ul {
+            margin-left: 20px;
+        }
+        
+        .conditions-list li {
+            margin-bottom: 5px;
+        }
+        
+        .signature-section {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 2px solid #333;
+            margin-bottom: 15px;
+            height: 80px;
+        }
+        
+        .signature-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .signature-name {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .validity-notice {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            color: #0c5460;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body { -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">J</div>
+        <div class="company-info">
+            <div class="company-name">JURMAQ EIRL</div>
+            <div class="company-details">
+                <strong>RUT:</strong> 76.624.872-1<br>
+                <strong>Propietario:</strong> Jorge Ubilla Valdivia<br>
+                <strong>Actividad:</strong> Construcción y Servicios<br>
+                <strong>Email:</strong> jorge@jurmaq.cl<br>
+                <strong>Teléfono:</strong> +56 9 XXXX XXXX
+            </div>
+        </div>
+    </div>
+    
+    <div class="document-title">Presupuesto</div>
+    <div class="presupuesto-number">{{numero}}</div>
+    
+    <div class="client-section">
+        <div class="section-title">Información del Cliente</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Cliente</div>
+                <div class="info-value">{{cliente}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Fecha</div>
+                <div class="info-value">{{fecha}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Válido hasta</div>
+                <div class="info-value">{{fecha_vencimiento}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Estado</div>
+                <div class="info-value">{{estado}}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="description-section">
+        <div class="section-title">Descripción del Trabajo</div>
+        <div class="description-text">{{descripcion}}</div>
+    </div>
+    
+    {{#if items}}
+    <div class="section-title">Detalle de Ítems</div>
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th style="text-align: center; width: 80px;">Cant.</th>
+                <th style="text-align: right; width: 120px;">Precio Unit.</th>
+                <th style="text-align: right; width: 120px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+            <tr>
+                <td>{{descripcion}}</td>
+                <td style="text-align: center;">{{cantidad}}</td>
+                <td class="amount">${{precio_unitario}}</td>
+                <td class="amount">${{total}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{/if}}
+    
+    <div class="total-section">
+        <div class="total-label">Monto Total del Presupuesto</div>
+        <div class="total-amount">${{monto}}</div>
+    </div>
+    
+    <div class="conditions-section">
+        <div class="conditions-title">Condiciones Generales</div>
+        <div class="conditions-list">
+            <ul>
+                <li>Presupuesto válido por 30 días desde la fecha de emisión</li>
+                <li>Los precios incluyen materiales y mano de obra especializada</li>
+                <li>Se requiere anticipo del 30% para iniciar los trabajos</li>
+                <li>Los materiales adicionales no contemplados serán cotizados por separado</li>
+                <li>El plazo de ejecución se acordará según el alcance del proyecto</li>
+                <li>Se entrega garantía por los trabajos realizados</li>
+            </ul>
+        </div>
+    </div>
+    
+    {{#if observaciones}}
+    <div class="description-section">
+        <div class="section-title">Observaciones Adicionales</div>
+        <div class="description-text">{{observaciones}}</div>
+    </div>
+    {{/if}}
+    
+    <div class="signature-section">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div class="signature-title">Por la Empresa</div>
+            <div class="signature-name">
+                Jorge Ubilla Valdivia<br>
+                JURMAQ EIRL<br>
+                RUT: 76.624.872-1
+            </div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div class="signature-title">Acepta Cliente</div>
+            <div class="signature-name">
+                {{cliente}}<br>
+                Firma y RUT<br>
+                Fecha: _______________
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <strong>JURMAQ EIRL - Construcción y Servicios Profesionales</strong><br>
+        Presupuesto generado por JURMAQ Gestión Empresarial<br>
+        Fecha de emisión: {{fecha_actual}}
+        
+        <div class="validity-notice">
+            ⚠️ Este presupuesto es válido únicamente por 30 días desde su emisión
+        </div>
+    </div>
+</body>
+</html>
