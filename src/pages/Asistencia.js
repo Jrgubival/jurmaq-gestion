@@ -1,0 +1,1 @@
+export { Asistencia as default } from './PlaceholderPages';

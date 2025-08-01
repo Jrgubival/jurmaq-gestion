@@ -1,0 +1,1 @@
+export { Facturas as default } from './PlaceholderPages';

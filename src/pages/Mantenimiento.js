@@ -1,0 +1,1 @@
+export { Mantenimiento as default } from './PlaceholderPages';

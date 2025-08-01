@@ -1,0 +1,1 @@
+export { Presupuestos as default } from './PlaceholderPages';

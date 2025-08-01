@@ -1,0 +1,1 @@
+export { Documentacion as default } from './PlaceholderPages';
