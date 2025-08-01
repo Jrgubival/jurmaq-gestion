@@ -1,0 +1,27 @@
+{
+  "name": "jurmaq-gestion",
+  "version": "1.0.0",
+  "description": "Business management application for JURMAQ EIRL",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build": "npm run build:win && npm run build:mac"
+  },
+  "dependencies": {
+    "electron": "^latest",
+    "react": "^latest",
+    "react-dom": "^latest"
+  },
+  "devDependencies": {
+    "typescript": "^latest",
+    "electron-builder": "^latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jrgubival/jurmaq-gestion.git"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
