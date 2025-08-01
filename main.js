@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
 const path = require('path');
+const Database = require('./src/main/database/connection');
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow;
@@ -20,7 +21,11 @@ function createWindow() {
     });
 
     // Load the app
-    mainWindow.loadFile(path.join(__dirname, 'index.html'));
+    if (isDev) {
+        mainWindow.loadURL('http://localhost:3000');
+    } else {
+        mainWindow.loadFile(path.join(__dirname, 'build/index.html'));
+    }
 
     // Show window when ready
     mainWindow.once('ready-to-show', () => {
@@ -94,17 +99,38 @@ const menuTemplate = [
     }
 ];
 
-// Basic IPC handlers for demo
-ipcMain.handle('db-query', async (event, query, params) => {
-    // Demo implementation - return mock data
-    console.log('DB Query:', query, params);
-    return [];
+// Database and IPC handlers
+ipcMain.handle('db-query', async (event, query, params = []) => {
+    try {
+        const db = Database.getInstance();
+        const result = await db.all(query, params);
+        return result;
+    } catch (error) {
+        console.error('Database query error:', error);
+        throw error;
+    }
 });
 
-ipcMain.handle('db-run', async (event, query, params) => {
-    // Demo implementation
-    console.log('DB Run:', query, params);
-    return { id: Date.now(), changes: 1 };
+ipcMain.handle('db-run', async (event, query, params = []) => {
+    try {
+        const db = Database.getInstance();
+        const result = await db.run(query, params);
+        return result;
+    } catch (error) {
+        console.error('Database run error:', error);
+        throw error;
+    }
+});
+
+ipcMain.handle('db-get', async (event, query, params = []) => {
+    try {
+        const db = Database.getInstance();
+        const result = await db.get(query, params);
+        return result;
+    } catch (error) {
+        console.error('Database get error:', error);
+        throw error;
+    }
 });
 
 ipcMain.handle('show-open-dialog', async (event, options) => {
@@ -118,15 +144,31 @@ ipcMain.handle('show-save-dialog', async (event, options) => {
 });
 
 ipcMain.handle('generate-pdf', async (event, options) => {
-    // Demo implementation
-    console.log('Generate PDF:', options);
-    return { success: true, filename: 'demo.pdf', path: '/tmp/demo.pdf' };
+    try {
+        // Import PDF service dynamically
+        const PDFService = require('./src/main/services/pdfService');
+        const result = await PDFService.generatePDF(options);
+        return result;
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        return { success: false, error: error.message };
+    }
 });
 
 ipcMain.handle('sync-onedrive', async (event) => {
-    // Demo implementation
-    console.log('OneDrive sync requested');
-    return { success: true, message: 'Sincronización completada (demo)' };
+    try {
+        // Import OneDrive service dynamically
+        const OneDriveService = require('./src/main/services/oneDriveService');
+        const result = await OneDriveService.syncFiles();
+        return result;
+    } catch (error) {
+        console.error('OneDrive sync error:', error);
+        return { success: false, error: error.message };
+    }
+});
+
+ipcMain.handle('get-app-version', async (event) => {
+    return app.getVersion();
 });
 
 // Create the application menu
@@ -134,8 +176,18 @@ const menu = Menu.buildFromTemplate(menuTemplate);
 Menu.setApplicationMenu(menu);
 
 // App event handlers
-app.whenReady().then(() => {
-    createWindow();
+app.whenReady().then(async () => {
+    try {
+        // Initialize database
+        await Database.initialize();
+        console.log('Database initialized successfully');
+        
+        createWindow();
+    } catch (error) {
+        console.error('Failed to initialize database:', error);
+        // Create window anyway but with limited functionality
+        createWindow();
+    }
 });
 
 app.on('window-all-closed', () => {

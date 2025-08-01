@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // Database operations
     dbQuery: (query, params) => ipcRenderer.invoke('db-query', query, params),
     dbRun: (query, params) => ipcRenderer.invoke('db-run', query, params),
+    dbGet: (query, params) => ipcRenderer.invoke('db-get', query, params),
     
     // File operations
     showOpenDialog: (options) => ipcRenderer.invoke('show-open-dialog', options),
