@@ -5,48 +5,13 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:3000 && electron .\"",
-    "dev:react": "react-scripts start",
-    "build": "npm run build:react && npm run build:electron",
-    "build:react": "react-scripts build",
-    "build:electron": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "electron": "^28.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
-    "@mui/material": "^5.15.0",
-    "@mui/icons-material": "^5.15.0",
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@mui/x-date-pickers": "^6.18.0",
-    "@mui/x-data-grid": "^6.18.0",
-    "sqlite3": "^5.1.6",
-    "puppeteer": "^21.6.0",
-    "docxtemplater": "^3.45.0",
-    "pizzip": "^3.1.4",
-    "dayjs": "^1.11.10",
-    "axios": "^1.6.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "node-cron": "^3.0.3"
+    "electron": "^28.0.0"
   },
   "devDependencies": {
-    "typescript": "^4.9.5",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0", 
-    "@types/node": "^20.10.0",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.5",
-    "electron-builder": "^24.9.0",
-    "react-scripts": "5.0.1",
-    "concurrently": "^8.2.0",
-    "wait-on": "^7.2.0"
+    "typescript": "^4.9.5"
   },
   "homepage": "./",
   "build": {
@@ -70,23 +35,7 @@
     "mac": {
       "target": "dmg",
       "icon": "assets/icons/icon.icns"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
     }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "repository": {
     "type": "git",
