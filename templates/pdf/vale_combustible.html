@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vale de Combustible - {{numero}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+            padding: 40px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .company-info {
+            text-align: right;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .company-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .document-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 40px 0;
+            color: #333;
+            text-transform: uppercase;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .vale-number {
+            text-align: center;
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .info-section {
+            margin-bottom: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        
+        .info-value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .total-section {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .total-label {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .total-amount {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .signature-section {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 2px solid #333;
+            margin-bottom: 10px;
+            height: 80px;
+        }
+        
+        .signature-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .provider-info {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .provider-title {
+            font-weight: bold;
+            color: #d63031;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        @media print {
+            body { -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">J</div>
+        <div class="company-info">
+            <div class="company-name">JURMAQ EIRL</div>
+            <div class="company-details">
+                RUT: 76.624.872-1<br>
+                Constructora<br>
+                Jorge Ubilla Valdivia<br>
+                Propietario
+            </div>
+        </div>
+    </div>
+    
+    <div class="document-title">Vale de Combustible</div>
+    <div class="vale-number">N° {{numero}}</div>
+    
+    <div class="info-section">
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Vehículo</div>
+                <div class="info-value">{{vehiculo}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Conductor</div>
+                <div class="info-value">{{conductor}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Fecha</div>
+                <div class="info-value">{{fecha}}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Kilometraje</div>
+                <div class="info-value">{{kilometraje}} Km</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Cantidad</div>
+                <div class="info-value">{{cantidad}} Litros</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Precio por Litro</div>
+                <div class="info-value">${{precio_litro}}</div>
+            </div>
+        </div>
+        
+        {{#if observaciones}}
+        <div class="info-item" style="grid-column: 1 / -1;">
+            <div class="info-label">Observaciones</div>
+            <div class="info-value">{{observaciones}}</div>
+        </div>
+        {{/if}}
+    </div>
+    
+    <div class="total-section">
+        <div class="total-label">Monto Total</div>
+        <div class="total-amount">${{total}}</div>
+    </div>
+    
+    <div class="provider-info">
+        <div class="provider-title">Proveedor de Combustible</div>
+        <strong>Comercial Maquehua SPA</strong><br>
+        RUT: 77.214.160-1<br>
+        Este vale constituye una orden de compra dirigida al proveedor autorizado.
+    </div>
+    
+    <div class="signature-section">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div class="signature-title">Conductor</div>
+            <div>{{conductor}}</div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div class="signature-title">Autoriza</div>
+            <div>Jorge Ubilla<br>JURMAQ EIRL</div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <div class="signature-title">Proveedor</div>
+            <div>Comercial Maquehua SPA</div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Vale de Combustible generado por JURMAQ Gestión Empresarial<br>
+        Fecha de emisión: {{fecha_emision}} - Válido por 30 días
+    </div>
+</body>
+</html>

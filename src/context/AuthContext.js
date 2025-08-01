@@ -52,12 +52,8 @@ export const AuthProvider = ({ children }) => {
 
       const userData = users[0];
       
-      // In a real implementation, you would verify the password hash
-      // For demo purposes, we'll accept any password
-      const bcrypt = require('bcryptjs');
-      // const isValidPassword = await bcrypt.compare(password, userData.password_hash);
-      
-      // For demo: accept 'admin123' for admin or 'user123' for others
+      // For demo purposes, we'll use simple password verification
+      // In production, this would be done on the backend with proper hashing
       const isValidPassword = 
         (userData.rol === 'Admin' && password === 'admin123') ||
         (userData.rol !== 'Admin' && password === 'user123') ||
